@@ -6,7 +6,7 @@
  * Plugin URI: https://www.pixelemu.com/wordpress-plugins/i/3-pe-recent-posts
  * Author: pixelemu.com
  * Author URI: https://www.pixelemu.com
- * Version: 1.2.0
+ * Version: 1.2
  * Text Domain: pe-recent-posts
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -284,6 +284,7 @@ if (!class_exists('PE_Recent_Posts_Plugin')) {
 				'tax_query' => $tax_query,
 				'tag_id' => $tag_loop
 			));
+			$number_of_all_items = $loop->post_count;
 			$counter = 0;
 			$counter_elements_in_row = 0;
 			$counter_bullets = 0;
@@ -305,8 +306,37 @@ if (!class_exists('PE_Recent_Posts_Plugin')) {
 			} else if (!taxonomy_exists($post_type_category) && !empty($post_type_category)) {
 				echo __('Entered <strong>Post Type Taxonomy</strong> does not exist.', 'pe-recent-posts');
 			} else { ?>
-				<div id="myCarousel-<?php echo $unique_id; ?>" class="pe-recent-posts-outer carousel slide <?php echo $one_row_mobile_class . ' '; if ($navigation_way == 3) { echo 'vertical'; } ?> <?php echo $bullets_on_board; ?> columns-<?php echo $number_of_columns . ' ' . $even_odd; ?>" style="margin-left: -<?php echo $grid_spacing; ?>px;">
-					<div class="carousel-inner image-<?php echo $image_alignment; ?>" style="margin-bottom: -<?php echo $grid_spacing; ?>px;">
+				<div id="myCarousel-<?php echo $unique_id; ?>" data-keyboard="false" class="pe-recent-posts-outer carousel slide <?php echo $one_row_mobile_class . ' ';
+																											if ($navigation_way == 3) {
+																												echo 'vertical';
+																											} ?> <?php echo $bullets_on_board; ?> columns-<?php echo $number_of_columns . ' ' . $even_odd; ?>" style="margin-left: -<?php echo $grid_spacing; ?>px;">
+					<?php if (($navigation_way == 1) && ($number_of_all_items > ($number_of_columns * $number_of_rows))) { ?>
+						<?php $counter2 = 0; ?>
+						<ol class="carousel-indicators" style="padding-left: <?php echo $grid_spacing; ?>px;" role="tablist" aria-label="<?php echo __('Indicators', 'pe-recent-posts'); ?>">
+							<?php while ($loop->have_posts()) : $loop->the_post(); ?>
+								<?php $counter2++; ?>
+								<?php if (($counter2 % ($number_of_columns * $number_of_rows) == 1) || ($number_of_columns * $number_of_rows) == 1) {
+									if ($counter2 == 1) { ?>
+										<li id="title-<?php echo $unique_id; ?>-<?php echo $counter2; ?>" data-target="#myCarousel-<?php echo $unique_id; ?>" data-slide-to="0" class="active" tabindex="0" role="tab" aria-selected="false" aria-controls="<?php echo $unique_id; ?>-tab-<?php echo $counter2; ?>"><?php echo __('Item', 'pe-recent-posts'); ?> 1</li>
+									<?php } else { ?>
+										<li id="title-<?php echo $unique_id; ?>-<?php echo $counter2; ?>" data-target="#myCarousel-<?php echo $unique_id; ?>" data-slide-to="<?php echo ($counter2 - 1) / ($number_of_columns * $number_of_rows); ?>" tabindex="0" role="tab" aria-selected="false" aria-controls="<?php echo $unique_id; ?>-tab-<?php echo $counter2; ?>"><?php echo __('Item', 'pe-recent-posts'); ?> <?php echo (($counter2 - 1) / ($number_of_columns * $number_of_rows)) + 1; ?></li>
+									<?php } ?>
+								<?php } ?>
+							<?php endwhile; ?>
+							<?php wp_reset_query(); ?>
+						</ol>
+					<?php } else if (($navigation_way == 2) && ($number_of_all_items > ($number_of_columns * $number_of_rows))) { ?>
+						<div class="pe-carousel-navigation-container left-right">
+							<a class="carousel-control left" role="button" aria-controls="<?php echo $unique_id; ?>-container" aria-label="<?php echo __('Previous Slide', 'pe-recent-posts'); ?>" role="button" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="prev"><i class="fa fa-chevron-left fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Previous', 'pe-recent-posts'); ?></span></i></a>
+							<a class="carousel-control right" role="button" aria-controls="<?php echo $unique_id; ?>-container" aria-label="<?php echo __('Next Slide', 'pe-recent-posts'); ?>" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="next"><i class="fa fa-chevron-right fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Next', 'pe-recent-posts'); ?></span></i></a>
+						</div>
+					<?php } else if (($navigation_way == 3) && ($number_of_all_items > ($number_of_columns * $number_of_rows))) { ?>
+						<div class="pe-carousel-navigation-container up-down">
+							<a class="carousel-control up" role="button" aria-controls="<?php echo $unique_id; ?>-container" aria-label="<?php echo __('Previous Slide', 'pe-recent-posts'); ?>" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="prev"><i class="fa fa-chevron-up fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Previous', 'pe-recent-posts'); ?></span></i></a>
+							<a class="carousel-control down" role="button" aria-controls="<?php echo $unique_id; ?>-container" aria-label="<?php echo __('Next Slide', 'pe-recent-posts'); ?>" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="next"><i class="fa fa-chevron-down fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Next', 'pe-recent-posts'); ?></span></i></a>
+						</div>
+					<?php } ?>
+					<div class="carousel-inner image-<?php echo $image_alignment; ?>" style="margin-bottom: -<?php echo $grid_spacing; ?>px;" id="<?php echo $unique_id; ?>-container" aria-live="off">
 						<?php while ($loop->have_posts()) : $loop->the_post(); ?>
 							<?php
 							$counter++;
@@ -317,18 +347,31 @@ if (!class_exists('PE_Recent_Posts_Plugin')) {
 							$counter_elements_in_row++;
 							global $post;
 							$permalink = get_permalink($post->ID);
+
+							$aria_labeledby = '';
+							$aria_roledescription = '';
+							$aria_label_slide = '';
+							$current_panel_number = (($counter - 1) / ($number_of_columns * $number_of_rows)) + 1;
+							$number_of_panels = intval(($number_of_all_items / ($number_of_columns * $number_of_rows)) + 1);
+							if ($navigation_way == 1) {
+								$aria_labeledby = 'aria-labelledby="title-' . $unique_id . '-' . $counter . '"';
+							} else if ($navigation_way == 2 || $navigation_way == 3) {
+								$aria_roledescription = 'aria-roledescription="' . __('slide', 'pe-recent-posts') . '"';
+								$aria_label_slide = 'aria-label="' . $current_panel_number . ' of ' . $number_of_panels . '"';
+							}
+
 							if ($number_of_columns * $number_of_rows == 1) {
 								if ($counter == 1) { ?>
-									<div class="item active el-in-row-<?php echo $number_of_columns; ?>">
+									<div class="item active clearfix el-in-row-<?php echo $number_of_columns; ?>" id="<?php echo $unique_id; ?>-tab-<?php echo $counter; ?>" <?php echo $aria_labeledby . ' ' . $aria_roledescription . ' ' . $aria_label_slide; ?> tabindex="0">
 									<?php } else { ?>
-										<div class="item el-in-row-<?php echo $number_of_columns; ?>">
+										<div class="item clearfix el-in-row-<?php echo $number_of_columns; ?>" id="<?php echo $unique_id; ?>-tab-<?php echo $counter; ?>" <?php echo $aria_labeledby . ' ' . $aria_roledescription . ' ' . $aria_label_slide; ?> tabindex="0">
 										<?php } ?>
 										<?php } else {
 										if (($counter % ($number_of_columns * $number_of_rows) == 1)) {
 											if ($counter == 1) { ?>
-												<div class="item active el-in-row-<?php echo $number_of_columns; ?>">
+												<div class="item active clearfix el-in-row-<?php echo $number_of_columns; ?>" id="<?php echo $unique_id; ?>-tab-<?php echo $counter; ?>" <?php echo $aria_labeledby . ' ' . $aria_roledescription . ' ' . $aria_label_slide; ?> tabindex="0">
 												<?php } else { ?>
-													<div class="item el-in-row-<?php echo $number_of_columns; ?>">
+													<div class="item clearfix el-in-row-<?php echo $number_of_columns; ?>" id="<?php echo $unique_id; ?>-tab-<?php echo $counter; ?>" <?php echo $aria_labeledby . ' ' . $aria_roledescription . ' ' . $aria_label_slide; ?> tabindex="0">
 													<?php } ?>
 											<?php }
 									} ?>
@@ -458,32 +501,6 @@ if (!class_exists('PE_Recent_Posts_Plugin')) {
 										if ($counter < ($number_of_columns * $number_of_rows)) { ?>
 									</div>
 								<?php } ?>
-								<?php if (($navigation_way == 1) && ($counter > ($number_of_columns * $number_of_rows))) { ?>
-									<?php $counter2 = 0; ?>
-									<ol class="carousel-indicators" style="padding-left: <?php echo $grid_spacing; ?>px;">
-										<?php while ($loop->have_posts()) : $loop->the_post(); ?>
-											<?php $counter2++; ?>
-											<?php if (($counter2 % ($number_of_columns * $number_of_rows) == 1) || ($number_of_columns * $number_of_rows) == 1) {
-												if ($counter2 == 1) { ?>
-													<li data-target="#myCarousel-<?php echo $unique_id; ?>" data-slide-to="0" class="active" tabindex="0">item-0</li>
-												<?php } else { ?>
-													<li data-target="#myCarousel-<?php echo $unique_id; ?>" data-slide-to="<?php echo ($counter2 - 1) / ($number_of_columns * $number_of_rows); ?>" tabindex="0">item-<?php echo ($counter2 - 1) / ($number_of_columns * $number_of_rows); ?></li>
-												<?php } ?>
-											<?php } ?>
-										<?php endwhile; ?>
-										<?php wp_reset_query(); ?>
-									</ol>
-								<?php } else if (($navigation_way == 2) && ($counter > ($number_of_columns * $number_of_rows))) { ?>
-									<div class="pe-carousel-navigation-container left-right">
-										<a class="carousel-control left" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="prev"><i class="fa fa-chevron-left fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Previous', 'pe-recent-posts'); ?></span></i></a>
-										<a class="carousel-control right" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="next"><i class="fa fa-chevron-right fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Next', 'pe-recent-posts'); ?></span></i></a>
-									</div>
-								<?php } else if (($navigation_way == 3) && ($counter > ($number_of_columns * $number_of_rows))) { ?>
-									<div class="pe-carousel-navigation-container up-down">
-										<a class="carousel-control up" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="prev"><i class="fa fa-chevron-up fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Previous', 'pe-recent-posts'); ?></span></i></a>
-										<a class="carousel-control down" href="#myCarousel-<?php echo $unique_id; ?>" data-slide="next"><i class="fa fa-chevron-down fa-2" aria-hidden="true"><span class="sr-only"><?php _e('Next', 'pe-recent-posts'); ?></span></i></a>
-									</div>
-								<?php } ?>
 					</div>
 					<?php if (($taxonomy_link == 1) && (!empty($category_id))) {
 						$values = array(
@@ -507,17 +524,111 @@ if (!class_exists('PE_Recent_Posts_Plugin')) {
 						function($) {
 							const peRecentPostscarouselContainer = $('#<?php echo $unique_id; ?> .pe-recent-posts-outer');
 							const peRecentPostsArrows = $('#<?php echo $unique_id; ?> .pe-recent-posts-outer .pe-carousel-navigation-container');
+							const peRecentPostsArrow = $('#<?php echo $unique_id; ?> .pe-recent-posts-outer .pe-carousel-navigation-container .carousel-control');
 							const peRecentPostsIndicatorsContainer = $('#<?php echo $unique_id; ?> .carousel-indicators');
 							const peRecentPostsIndicators = $('#<?php echo $unique_id; ?> .carousel-indicators li');
+							const peRecentPostsPanel = $('#<?php echo $unique_id; ?> .carousel-inner > .item');
 							peRecentPostscarouselContainer.carousel({
 								interval: <?php echo $interval; ?>,
 								pause: "<?php echo $slider_pause; ?>"
 							})
-							peRecentPostsIndicators.on('keyup', function(event) {
-								if (event.which == 13) { // enter key
+
+							$('#<?php echo $unique_id; ?> ol.carousel-indicators li:first-child').attr('aria-selected', 'true');
+
+							peRecentPostsArrow.on('keydown', function(event) {
+
+								if (event.which == 32) { // Space key
+									event.preventDefault();
 									$(this).click();
 								}
+
 							});
+
+							peRecentPostsIndicators.on('keydown', function(event) {
+
+								$(this).parent().children().attr('aria-selected', 'false');
+								$('#<?php echo $unique_id; ?> ol.carousel-indicators li:first-child').attr('aria-selected', 'true');
+
+								if (event.which == 9) { // Tab key
+									if (event.shiftKey) { // + Shift Tab key
+
+										$(this).siblings('li:not(.active)').attr('tabindex', '-1');
+
+									} else {
+
+										event.preventDefault();
+										let tabID = $(this).attr('aria-controls');
+										$(this).click();
+										$(this).parent().siblings('.carousel-inner').find('#' + tabID).focus();
+
+									}
+
+								}
+
+								if (event.which == 13) { // Enter key
+									$(this).click();
+								}
+
+								if (event.which == 39) { // Right arrow
+
+									event.preventDefault();
+									if ($(this).is(':last-child')) {
+										$(this).siblings().first().focus().click().attr('aria-selected', 'true');
+									} else {
+										$(this).next().focus().click().attr('aria-selected', 'true');
+									}
+
+								}
+
+								if (event.which == 37) { // Left arrow
+
+									event.preventDefault();
+									if ($(this).is(':first-child')) {
+										$(this).siblings().last().focus().click().attr('aria-selected', 'true');
+									} else {
+										$(this).prev().focus().click().attr('aria-selected', 'true');
+									}
+
+								}
+
+								if (event.which == 36) { // Home key
+
+									event.preventDefault();
+									$(this).parent().children('li:first-child').focus().click().attr('aria-selected', 'true');
+
+								}
+
+								if (event.which == 35) { // End key
+
+									event.preventDefault();
+									$(this).parent().children('li:last-child').focus().click().attr('aria-selected', 'true');
+
+								}
+
+							});
+
+							peRecentPostsPanel.on('keydown', function(event) {
+
+								let tabPanel = event.target.getAttribute('id');
+
+								if (event.which == 9) { // Tab key
+
+									$(this).parent('.carousel-inner').siblings('.carousel-indicators').children('li').attr('tabindex', '0');
+
+									if (event.shiftKey) { // + Shift Tab key
+										if ($(this).parent().parent().hasClass('bullets-on-board')) {
+											if (!$(this).find('a').is(":focus")) {
+												event.preventDefault();
+												$(this).parent('.carousel-inner').siblings('.carousel-indicators').children('li[aria-controls="' + tabPanel + '"]').focus();
+											}
+										}
+
+									}
+
+								}
+
+							});
+
 							if (peRecentPostscarouselContainer.hasClass('one-row-mobile-on') && $(window).width() < 768) { // one row for mobiles
 								$("#<?php echo $unique_id; ?> ul.thumbnails").wrap("<div class='pe-item-mobile item el-in-row-<?php echo $number_of_columns; ?>'></div>"); //wrap items
 								$("#<?php echo $unique_id; ?> .pe-item-mobile").unwrap(); // remove original '.item' divs
@@ -856,11 +967,11 @@ function pe_recent_posts_js()
 {
 	wp_enqueue_script('jquery');
 	if (!(wp_script_is('bootstrap.js', 'enqueued') || wp_script_is('bootstrap.min.js', 'enqueued'))) {
-		wp_register_script('bootstrap.min', plugins_url() . '/pe-recent-posts/js/bootstrap.min.js', array('jquery'), '3.2.0', false);
+		wp_register_script('bootstrap.min', plugins_url() . '/pe-recent-posts/js/bootstrap.min.js', array('jquery'), '3.3.0', false);
 		wp_enqueue_script('bootstrap.min');
 	}
 }
-add_action('wp_enqueue_scripts', 'pe_recent_posts_js');
+add_action('wp_enqueue_scripts', 'pe_recent_posts_js', 1);
 
 //load widget
 function pe_recent_posts_register_widget()

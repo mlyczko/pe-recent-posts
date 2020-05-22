@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: yyyy-mm-dd hh:mm+0000\n"
-"PO-Revision-Date: 2019-10-30 14:33+0100\n"
+"PO-Revision-Date: 2020-03-31 15:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,282 +18,288 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "X-Generator: Eazy Po 0.9.5.3\n"
 
-#: pe-recent-posts.php:68
+#: pe-recent-posts.php:74
 msgid "Show recent posts."
 msgstr ""
 
-#: pe-recent-posts.php:290
+#: pe-recent-posts.php:300
 msgid ""
 "Entered <strong>Post Type Taxonomy</strong> does not belong to <strong>Post "
 "Type</strong>."
 msgstr ""
 
-#: pe-recent-posts.php:292
+#: pe-recent-posts.php:302
 msgid ""
 "Entered <strong>Post Type</strong> and <strong>Post Type Taxonomy</strong> "
 "does not exist."
 msgstr ""
 
-#: pe-recent-posts.php:294
+#: pe-recent-posts.php:304
 msgid "Entered <strong>Post Type</strong> does not exist."
 msgstr ""
 
-#: pe-recent-posts.php:296
+#: pe-recent-posts.php:306
 msgid "Entered <strong>Post Type Taxonomy</strong> does not exist."
 msgstr ""
 
-#: pe-recent-posts.php:349 pe-recent-posts.php:408
+#: pe-recent-posts.php:361 pe-recent-posts.php:422
 msgid "Created by: "
 msgstr ""
 
-#: pe-recent-posts.php:366 pe-recent-posts.php:426
+#: pe-recent-posts.php:378 pe-recent-posts.php:440
 msgid "Read more"
 msgstr ""
 
-#: pe-recent-posts.php:412
+#: pe-recent-posts.php:426
 msgid "Category: "
 msgstr ""
 
-#: pe-recent-posts.php:464 pe-recent-posts.php:469
+#: pe-recent-posts.php:478 pe-recent-posts.php:483
 msgid "Previous"
 msgstr ""
 
-#: pe-recent-posts.php:465 pe-recent-posts.php:470
+#: pe-recent-posts.php:479 pe-recent-posts.php:484
 msgid "Next"
 msgstr ""
 
-#: pe-recent-posts.php:484
+#: pe-recent-posts.php:498
 msgid "More from"
 msgstr ""
 
-#: pe-recent-posts.php:512
+#: pe-recent-posts.php:543
 msgid "MISC Posts"
 msgstr ""
 
-#: pe-recent-posts.php:530
+#: pe-recent-posts.php:562
 msgid "PE Recent Posts"
 msgstr ""
 
-#: pe-recent-posts.php:567 pe-recent-posts.php:698
+#: pe-recent-posts.php:601 pe-recent-posts.php:739
 msgid "Title"
 msgstr ""
 
-#: pe-recent-posts.php:571
+#: pe-recent-posts.php:605
 msgid "Post Type"
 msgstr ""
 
-#: pe-recent-posts.php:575
+#: pe-recent-posts.php:609
 msgid "Post Type Taxonomy"
 msgstr ""
 
-#: pe-recent-posts.php:579
+#: pe-recent-posts.php:613
 msgid "Taxonomy items (empty items are not displayed)"
 msgstr ""
 
-#: pe-recent-posts.php:608
+#: pe-recent-posts.php:642
 msgid "Archive link at the bottom (only if taxonomy was selected)"
 msgstr ""
 
-#: pe-recent-posts.php:610 pe-recent-posts.php:661 pe-recent-posts.php:669
-#: pe-recent-posts.php:676 pe-recent-posts.php:683
+#: pe-recent-posts.php:644 pe-recent-posts.php:702 pe-recent-posts.php:710
+#: pe-recent-posts.php:717 pe-recent-posts.php:724
 msgid "Hide"
 msgstr ""
 
-#: pe-recent-posts.php:611 pe-recent-posts.php:670 pe-recent-posts.php:677
-#: pe-recent-posts.php:684
+#: pe-recent-posts.php:645 pe-recent-posts.php:711 pe-recent-posts.php:718
+#: pe-recent-posts.php:725
 msgid "Show"
 msgstr ""
 
-#: pe-recent-posts.php:615
+#: pe-recent-posts.php:649
 msgid "Force display sticky posts (only for posts)"
 msgstr ""
 
-#: pe-recent-posts.php:617 pe-recent-posts.php:637 pe-recent-posts.php:644
-#: pe-recent-posts.php:729 pe-recent-posts.php:736 pe-recent-posts.php:746
+#: pe-recent-posts.php:651 pe-recent-posts.php:667 pe-recent-posts.php:678
+#: pe-recent-posts.php:685 pe-recent-posts.php:770 pe-recent-posts.php:777
+#: pe-recent-posts.php:787
 msgid "Yes"
 msgstr ""
 
-#: pe-recent-posts.php:618 pe-recent-posts.php:636 pe-recent-posts.php:643
-#: pe-recent-posts.php:728 pe-recent-posts.php:735 pe-recent-posts.php:747
+#: pe-recent-posts.php:652 pe-recent-posts.php:666 pe-recent-posts.php:677
+#: pe-recent-posts.php:684 pe-recent-posts.php:769 pe-recent-posts.php:776
+#: pe-recent-posts.php:788
 msgid "No"
 msgstr ""
 
-#: pe-recent-posts.php:622
+#: pe-recent-posts.php:656
 msgid "Number of items in row"
 msgstr ""
 
-#: pe-recent-posts.php:626
+#: pe-recent-posts.php:660
 msgid "Number of rows"
 msgstr ""
 
-#: pe-recent-posts.php:630
+#: pe-recent-posts.php:664
+msgid "Make one row for mobile ( <768px )"
+msgstr ""
+
+#: pe-recent-posts.php:671
 msgid "Number of all items"
 msgstr ""
 
-#: pe-recent-posts.php:634
+#: pe-recent-posts.php:675
 msgid "Show Post Title"
 msgstr ""
 
-#: pe-recent-posts.php:641
+#: pe-recent-posts.php:682
 msgid "Post Title Linkable"
 msgstr ""
 
-#: pe-recent-posts.php:648
+#: pe-recent-posts.php:689
 msgid "Header Tag For Title"
 msgstr ""
 
-#: pe-recent-posts.php:650
+#: pe-recent-posts.php:691
 msgid "H1"
 msgstr ""
 
-#: pe-recent-posts.php:651
+#: pe-recent-posts.php:692
 msgid "H2"
 msgstr ""
 
-#: pe-recent-posts.php:652
+#: pe-recent-posts.php:693
 msgid "H3"
 msgstr ""
 
-#: pe-recent-posts.php:653
+#: pe-recent-posts.php:694
 msgid "H4"
 msgstr ""
 
-#: pe-recent-posts.php:654
+#: pe-recent-posts.php:695
 msgid "H5"
 msgstr ""
 
-#: pe-recent-posts.php:655
+#: pe-recent-posts.php:696
 msgid "H6"
 msgstr ""
 
-#: pe-recent-posts.php:659
+#: pe-recent-posts.php:700
 msgid "Creation Date"
 msgstr ""
 
-#: pe-recent-posts.php:662
+#: pe-recent-posts.php:703
 msgid "Show above title"
 msgstr ""
 
-#: pe-recent-posts.php:663
+#: pe-recent-posts.php:704
 msgid "Show below title"
 msgstr ""
 
-#: pe-recent-posts.php:667
+#: pe-recent-posts.php:708
 msgid "Author"
 msgstr ""
 
-#: pe-recent-posts.php:674
+#: pe-recent-posts.php:715
 msgid "Post type taxonomies"
 msgstr ""
 
-#: pe-recent-posts.php:681
+#: pe-recent-posts.php:722
 msgid "Readmore"
 msgstr ""
 
-#: pe-recent-posts.php:688
+#: pe-recent-posts.php:729
 msgid "Order Direction"
 msgstr ""
 
-#: pe-recent-posts.php:690
+#: pe-recent-posts.php:731
 msgid "ASC"
 msgstr ""
 
-#: pe-recent-posts.php:691
+#: pe-recent-posts.php:732
 msgid "DESC"
 msgstr ""
 
-#: pe-recent-posts.php:695
+#: pe-recent-posts.php:736
 msgid "Ordering"
 msgstr ""
 
-#: pe-recent-posts.php:697
+#: pe-recent-posts.php:738
 msgid "Date"
 msgstr ""
 
-#: pe-recent-posts.php:699
+#: pe-recent-posts.php:740
 msgid "Most commented"
 msgstr ""
 
-#: pe-recent-posts.php:700
+#: pe-recent-posts.php:741
 msgid "Most read"
 msgstr ""
 
-#: pe-recent-posts.php:704
+#: pe-recent-posts.php:745
 msgid "Navigation"
 msgstr ""
 
-#: pe-recent-posts.php:706
+#: pe-recent-posts.php:747
 msgid "None"
 msgstr ""
 
-#: pe-recent-posts.php:707
+#: pe-recent-posts.php:748
 msgid "Bullets"
 msgstr ""
 
-#: pe-recent-posts.php:708
+#: pe-recent-posts.php:749
 msgid "Arrows (prev/next)"
 msgstr ""
 
-#: pe-recent-posts.php:709
+#: pe-recent-posts.php:750
 msgid "Arrow (up/down)"
 msgstr ""
 
-#: pe-recent-posts.php:713
+#: pe-recent-posts.php:754
 msgid "Description Limit (chars)"
 msgstr ""
 
-#: pe-recent-posts.php:717
+#: pe-recent-posts.php:758
 msgid "Image Alignment"
 msgstr ""
 
-#: pe-recent-posts.php:719
+#: pe-recent-posts.php:760
 msgid "left"
 msgstr ""
 
-#: pe-recent-posts.php:720
+#: pe-recent-posts.php:761
 msgid "right"
 msgstr ""
 
-#: pe-recent-posts.php:721
+#: pe-recent-posts.php:762
 msgid "top"
 msgstr ""
 
-#: pe-recent-posts.php:722
+#: pe-recent-posts.php:763
 msgid "bottom"
 msgstr ""
 
-#: pe-recent-posts.php:726
+#: pe-recent-posts.php:767
 msgid "Show Thumbnail"
 msgstr ""
 
-#: pe-recent-posts.php:733
+#: pe-recent-posts.php:774
 msgid "Thumbnail Linkable"
 msgstr ""
 
-#: pe-recent-posts.php:740
+#: pe-recent-posts.php:781
 msgid "Interval in ms ( 0 - autoplay is disabled )"
 msgstr ""
 
-#: pe-recent-posts.php:744
+#: pe-recent-posts.php:785
 msgid "Pause on hover"
 msgstr ""
 
-#: pe-recent-posts.php:751
+#: pe-recent-posts.php:792
 msgid "Image Size"
 msgstr ""
 
-#: pe-recent-posts.php:753
+#: pe-recent-posts.php:794
 msgid "thumbnail"
 msgstr ""
 
-#: pe-recent-posts.php:754
+#: pe-recent-posts.php:795
 msgid "medium"
 msgstr ""
 
-#: pe-recent-posts.php:755
+#: pe-recent-posts.php:796
 msgid "large"
 msgstr ""
 
-#: pe-recent-posts.php:759
+#: pe-recent-posts.php:800
 msgid "Grid Spacing (px)"
 msgstr ""

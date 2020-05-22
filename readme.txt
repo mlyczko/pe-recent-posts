@@ -4,7 +4,7 @@ Donate link: https://pixelemu.com
 Tags: slides, latest post, latest posts with thumbnails, recent posts, thumbnails, widget, widgets, image, images, link, links, plugin, post, posts
 Requires at least: 3.4
 Tested up to: 5.4
-Stable tag: 1.2.0
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,9 +63,11 @@ Image sizes available to select from the list are determined at Media Settings o
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.2 =
 = fixed: =
-* Fixed REST API error related to using PHP session_start function
+* Fixed REST API and Loopback errors
+= added: =
+* Improved keyboard navigation according to WCAG guidelines
 
 = 1.1.9 =
 = added: =
